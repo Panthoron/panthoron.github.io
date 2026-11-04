@@ -272,25 +272,36 @@ footer img{height:24px;width:auto}
         </div>
         <div class="mail"><span style="color:#C9CFD4">Or email us:</span> <a class="addr" href="mailto:hello@panthoron.com">hello@panthoron.com</a></div>
       </div>
-      <form class="form" action="https://formsubmit.co/hello@panthoron.com" method="POST">
+      <form class="form" id="callform" novalidate>
         <h3>Book a call</h3>
-        <input type="hidden" name="_subject" value="New call request from panthoron.com">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_next" value="https://panthoron.com/?sent=1#contact">
-        <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div class="row"><label for="f-name">Name</label><input id="f-name" name="Name" required autocomplete="name" placeholder="Your full name"></div>
-        <div class="row"><label for="f-co">Company and plant location</label><input id="f-co" name="Company and plant" required autocomplete="organization" placeholder="e.g. Example Dairy, Larissa"></div>
+        <div class="row"><label for="f-co">Company and plant location <small>(optional)</small></label><input id="f-co" name="Company and plant" autocomplete="organization" placeholder="e.g. Example Dairy, Larissa"></div>
         <div class="row"><label for="f-mail">Email</label><input id="f-mail" type="email" name="email" required autocomplete="email" placeholder="An email you check daily"></div>
         <div class="row"><label for="f-tel">Phone or WhatsApp <small>(optional)</small></label><input id="f-tel" type="tel" name="Phone or WhatsApp" autocomplete="tel" placeholder="Include country code, e.g. +30"></div>
-        <div class="row"><label for="f-need">What do you need to trace?</label><textarea id="f-need" name="What do you need to trace" required placeholder="e.g. milk batches from farm to shelf"></textarea></div>
+        <div class="row"><label for="f-need">What do you need to trace? <small>(optional)</small></label><textarea id="f-need" name="What do you need to trace" placeholder="e.g. milk batches from farm to shelf"></textarea></div>
         <button class="btn lime" type="submit">Send</button>
-        <p class="sent" id="sent">Thank you. We will be in touch soon.</p>
+        <p class="sent" id="sent">Your email app should now open with your message. Press send there to reach us.</p>
+        <p class="note" style="margin-top:10px">If nothing opens, email us at <a href="mailto:hello@panthoron.com" style="color:var(--navy);font-weight:600">hello@panthoron.com</a>.</p>
         <p class="note">We use these details only to arrange your call. We keep them for up to 12 months and never share or sell them.</p>
       </form>
     </div>
   </div>
 </section>
-<script>try{if(new URLSearchParams(location.search).get('sent')==='1'){document.getElementById('sent').classList.add('show')}}catch(e){}</script>
+<script>
+(function(){
+  var f=document.getElementById('callform'); if(!f) return;
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var n=f.querySelector('#f-name'), m=f.querySelector('#f-mail');
+    if(!n.value.trim()){n.focus();n.reportValidity&&n.setCustomValidity('Please add your name.');n.reportValidity();n.setCustomValidity('');return}
+    if(!m.value.trim()||!m.checkValidity()){m.focus();m.setCustomValidity('Please add a valid email.');m.reportValidity();m.setCustomValidity('');return}
+    var v=function(id){return (f.querySelector(id).value||'').trim()||'-'};
+    var body='Name: '+v('#f-name')+'\nCompany and plant: '+v('#f-co')+'\nEmail: '+v('#f-mail')+'\nPhone or WhatsApp: '+v('#f-tel')+'\nWhat we need to trace: '+v('#f-need');
+    window.location.href='mailto:hello@panthoron.com?subject='+encodeURIComponent('Book a call about Panthoron')+'&body='+encodeURIComponent(body);
+    document.getElementById('sent').classList.add('show');
+  });
+})();
+</script>
 
 <footer>
   <div class="wrap">
