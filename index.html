@@ -118,23 +118,6 @@ mark{background:linear-gradient(transparent 58%,var(--lime) 58%,var(--lime) 92%,
 .data p{margin-top:8px;color:var(--muted);font-size:18px}
 
 
-/* enquiry panel */
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,64px);align-items:start;margin-top:32px}
-@media (max-width:900px){.contact-grid{grid-template-columns:1fr}}
-.contact .people{margin-top:0;grid-template-columns:1fr;gap:22px}
-.form{background:#fff;color:var(--ink);border-radius:var(--r);padding:clamp(20px,3vw,32px);box-shadow:10px 10px 0 var(--lime)}
-.form h3{font-size:22px;font-weight:750}
-.form .row{display:grid;gap:6px;margin-top:14px}
-.form label{font:600 14px Inter,sans-serif;color:var(--navy)}
-.form label small{font-weight:500;color:var(--muted)}
-.form input,.form textarea{font:400 16px/1.4 Inter,sans-serif;color:var(--ink);background:#fff;border:1.5px solid var(--rule);border-radius:8px;padding:11px 12px;width:100%}
-.form input:focus,.form textarea:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(200,240,49,.5)}
-.form textarea{min-height:96px;resize:vertical}
-.form .btn{margin-top:18px;width:100%}
-.form .note{margin-top:12px;font-size:13px;line-height:1.5;color:var(--muted)}
-.form .hp{position:absolute;left:-9999px}
-.sent{display:none;margin-top:14px;padding:12px 14px;border-radius:8px;background:#DFF1E6;color:#1E8A4C;font-weight:600}
-.sent.show{display:block}
 
 /* contact */
 .contact{background:var(--navy);color:#fff;padding:clamp(64px,8vw,104px) 0}
@@ -264,44 +247,17 @@ footer img{height:24px;width:auto}
 <section class="contact" id="contact">
   <div class="wrap">
     <h2>Talk to us about your plant</h2>
-    <div class="contact-grid">
-      <div>
-        <div class="people">
-          <div class="person"><img src="leo.jpg" alt="Leonidas Mademlis"><div><b>Leonidas Mademlis</b><span>Leonidas is our tech co-founder. He has 28 years on the factory floor.</span></div></div>
-          <div class="person"><img src="shirinda.jpg" alt="Shirinda Pulluru"><div><b>Shirinda Pulluru</b><span>Shirinda is our business co-founder. She has set up food businesses in more than 10 markets.</span></div></div>
-        </div>
-        <div class="mail"><span style="color:#C9CFD4">Or email us:</span> <a class="addr" href="mailto:hello@panthoron.com">hello@panthoron.com</a></div>
-      </div>
-      <form class="form" id="callform" novalidate>
-        <h3>Book a call</h3>
-        <div class="row"><label for="f-name">Name</label><input id="f-name" name="Name" required autocomplete="name" placeholder="Your full name"></div>
-        <div class="row"><label for="f-co">Company and plant location <small>(optional)</small></label><input id="f-co" name="Company and plant" autocomplete="organization" placeholder="e.g. Example Dairy, Larissa"></div>
-        <div class="row"><label for="f-mail">Email</label><input id="f-mail" type="email" name="email" required autocomplete="email" placeholder="An email you check daily"></div>
-        <div class="row"><label for="f-tel">Phone or WhatsApp <small>(optional)</small></label><input id="f-tel" type="tel" name="Phone or WhatsApp" autocomplete="tel" placeholder="Include country code, e.g. +30"></div>
-        <div class="row"><label for="f-need">What do you need to trace? <small>(optional)</small></label><textarea id="f-need" name="What do you need to trace" placeholder="e.g. milk batches from farm to shelf"></textarea></div>
-        <button class="btn lime" type="submit">Send</button>
-        <p class="sent" id="sent">Your email app should now open with your message. Press send there to reach us.</p>
-        <p class="note" style="margin-top:10px">If nothing opens, email us at <a href="mailto:hello@panthoron.com" style="color:var(--navy);font-weight:600">hello@panthoron.com</a>.</p>
-        <p class="note">We use these details only to arrange your call. We keep them for up to 12 months and never share or sell them.</p>
-      </form>
+    <div class="people">
+      <div class="person"><img src="leo.jpg" alt="Leonidas Mademlis"><div><b>Leonidas Mademlis</b><span>Leonidas is our tech co-founder. He has 28 years on the factory floor.</span></div></div>
+      <div class="person"><img src="shirinda.jpg" alt="Shirinda Pulluru"><div><b>Shirinda Pulluru</b><span>Shirinda is our business co-founder. She has set up food businesses in more than 10 markets.</span></div></div>
+    </div>
+    <div class="mail">
+      <a class="btn lime" href="mailto:hello@panthoron.com?subject=Book%20a%20call%20about%20Panthoron">Book a call</a>
+      <a class="addr" href="mailto:hello@panthoron.com">hello@panthoron.com</a>
     </div>
   </div>
 </section>
-<script>
-(function(){
-  var f=document.getElementById('callform'); if(!f) return;
-  f.addEventListener('submit',function(e){
-    e.preventDefault();
-    var n=f.querySelector('#f-name'), m=f.querySelector('#f-mail');
-    if(!n.value.trim()){n.focus();n.reportValidity&&n.setCustomValidity('Please add your name.');n.reportValidity();n.setCustomValidity('');return}
-    if(!m.value.trim()||!m.checkValidity()){m.focus();m.setCustomValidity('Please add a valid email.');m.reportValidity();m.setCustomValidity('');return}
-    var v=function(id){return (f.querySelector(id).value||'').trim()||'-'};
-    var body='Name: '+v('#f-name')+'\nCompany and plant: '+v('#f-co')+'\nEmail: '+v('#f-mail')+'\nPhone or WhatsApp: '+v('#f-tel')+'\nWhat we need to trace: '+v('#f-need');
-    window.location.href='mailto:hello@panthoron.com?subject='+encodeURIComponent('Book a call about Panthoron')+'&body='+encodeURIComponent(body);
-    document.getElementById('sent').classList.add('show');
-  });
-})();
-</script>
+
 
 <footer>
   <div class="wrap">
